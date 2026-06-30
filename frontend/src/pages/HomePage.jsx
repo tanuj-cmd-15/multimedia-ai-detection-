@@ -8,22 +8,22 @@ const HomePage = () => {
     {
       icon: <HiLightningBolt className="text-4xl text-accent-blue" />,
       title: 'Real-Time Detection',
-      description: 'Liveness verdicts in under 50 ms. Fast enough to run inline with voice biometric matching without perceptible latency.'
+      description: 'Audio deepfake detection in under 50ms. Image analysis in seconds. Fast enough for real-time verification.'
     },
     {
       icon: <HiCheckCircle className="text-4xl text-accent-green" />,
-      title: '98.4% Accuracy',
-      description: 'Benchmark-leading detection across TTS, voice conversion, replay, and voice-cloning attacks. Calibrated with confidence scores, not just binary verdicts.'
+      title: '98.6% Accuracy',
+      description: 'Benchmark-leading detection for audio deepfakes and AI-generated images. Specialized for Indo-Aryan languages.'
     },
     {
       icon: <HiChartBar className="text-4xl text-purple-500" />,
       title: 'Advanced Analytics',
-      description: 'Comprehensive feature analysis with attention heatmaps and spectral characteristics for detailed insights.'
+      description: 'Comprehensive audio feature analysis with attention heatmaps and Grad-CAM visualization for images.'
     },
     {
       icon: <HiShieldCheck className="text-4xl text-yellow-500" />,
-      title: 'Enterprise-grade',
-      description: 'Purpose-built for voice and communication products with support for 80+ languages.'
+      title: 'Multimedia Protection',
+      description: 'Dual detection system for both audio and image content. Purpose-built for Indian languages and global images.'
     }
   ]
   
@@ -45,15 +45,16 @@ const HomePage = () => {
           className="text-center max-w-5xl mx-auto"
         >
           <h1 className="text-6xl md:text-7xl font-bold mb-6">
-            Secure Every Voice
+            Secure Every Voice &
             <br />
-            Interaction in the
+            Image Interaction in the
             <br />
             <span className="gradient-text">Deepfake Era</span>
           </h1>
           
           <p className="text-xl text-gray-400 mb-10 max-w-3xl mx-auto">
-            Add the <span className="text-accent-blue font-semibold">#1 deepfake detection</span> to your platform with a single API call.
+            Add <span className="text-accent-blue font-semibold">multimedia deepfake detection</span> to your platform with simple API calls. 
+            Audio specialized for Indo-Aryan languages 🇮🇳
           </p>
           
           <div className="flex justify-center space-x-4">
@@ -146,25 +147,25 @@ const HomePage = () => {
             Different
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl mx-auto">
-            Purpose-built for voice and communication products.
+            Purpose-built for multimedia content verification with specialized audio detection for Indo-Aryan languages.
           </p>
         </motion.div>
         
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {[
             {
-              title: 'Real-Time Detection',
-              description: 'Liveness verdicts in under 50 ms. Fast enough to run inline with voice biometric matching without perceptible latency.',
+              title: 'Audio Detection',
+              description: 'CNN-BiLSTM-Attention model with 98.61% accuracy. Detects TTS, voice conversion, and cloning attacks. Optimized for Hindi, Marathi, Bengali, and other Indo-Aryan languages.',
               color: 'text-accent-blue'
             },
             {
-              title: '98%+ Accuracy',
-              description: 'Benchmark-leading detection across TTS, voice conversion, replay, and voice-cloning attacks. Calibrated with confidence scores.',
+              title: 'Image Detection',
+              description: 'ResNet-18 architecture with Grad-CAM explainability. Identifies AI-generated images from GANs, diffusion models, and other synthetic sources.',
               color: 'text-accent-green'
             },
             {
-              title: '80+ Languages',
-              description: 'Language-agnostic neural architecture that generalizes across accents, dialects, and telephony codecs.',
+              title: 'Multilingual Support',
+              description: 'Specialized for 10+ Indo-Aryan languages including code-mixed speech, regional accents, and cultural context. Language-agnostic image detection.',
               color: 'text-purple-500'
             }
           ].map((item, index) => (
@@ -189,12 +190,12 @@ const HomePage = () => {
       <section className="bg-gradient-to-r from-blue-600 to-purple-600 py-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-5xl font-bold mb-6">
-            Add Deepfake Detection to
+            Add Multimedia Deepfake
             <br />
-            Your Product
+            Detection to Your Product
           </h2>
           <p className="text-xl mb-10 text-blue-100 max-w-2xl mx-auto">
-            Join the companies integrating industry-leading AI detection. Ship in days, not months.
+            Protect your platform with industry-leading audio and image AI detection. Ship in days, not months.
           </p>
           <div className="flex justify-center space-x-4">
             <Link to="/detection" className="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105">

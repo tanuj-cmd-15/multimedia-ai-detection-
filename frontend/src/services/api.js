@@ -112,4 +112,18 @@ export const regenerateApiKey = async (userId) => {
   return response.data;
 };
 
+// Image analysis
+export const analyzeImage = async (imageFile) => {
+  const formData = new FormData();
+  formData.append('image', imageFile);
+  
+  const response = await axios.post('http://localhost:5001/predict', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  
+  return response.data;
+};
+
 export default api;

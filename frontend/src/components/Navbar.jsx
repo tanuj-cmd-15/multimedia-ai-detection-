@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiHome, HiShieldCheck, HiClipboardList, HiBookOpen, HiKey, HiLogin, HiUserAdd, HiLogout, HiUser, HiMenu, HiX } from 'react-icons/hi'
+import { HiHome, HiShieldCheck, HiClipboardList, HiBookOpen, HiKey, HiLogin, HiUserAdd, HiLogout, HiUser, HiMenu, HiX, HiPhotograph } from 'react-icons/hi'
 import { useAuth } from '../context/AuthContext'
 
 const Navbar = () => {
@@ -51,7 +51,19 @@ const Navbar = () => {
               }`}
             >
               <HiShieldCheck className="text-xl" />
-              <span className="font-medium">Detection</span>
+              <span className="font-medium">Audio</span>
+            </Link>
+            
+            <Link
+              to="/image-detection"
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-all ${
+                isActive('/image-detection')
+                  ? 'bg-accent-blue text-white'
+                  : 'text-gray-300 hover:bg-navy-700 hover:text-white'
+              }`}
+            >
+              <HiPhotograph className="text-xl" />
+              <span className="font-medium">Image</span>
             </Link>
             
             <Link
@@ -149,7 +161,8 @@ const Navbar = () => {
           <div className="md:hidden py-4 border-t border-navy-700">
             <div className="flex flex-col space-y-2">
               <Link to="/" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Home</Link>
-              <Link to="/detection" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Detection</Link>
+              <Link to="/detection" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Audio Detection</Link>
+              <Link to="/image-detection" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Image Detection</Link>
               <Link to="/history" className="px-4 py-2 hover:bg-navy-700 rounded-lg">History</Link>
               <Link to="/docs" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Docs</Link>
               {isAuthenticated ? (

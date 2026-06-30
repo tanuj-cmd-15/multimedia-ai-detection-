@@ -4,6 +4,7 @@ import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import HomePage from './pages/HomePage'
 import DetectionPage from './pages/DetectionPage'
+import ImageDetectionPage from './pages/ImageDetectionPage'
 import HistoryPage from './pages/HistoryPage'
 import DocsPage from './pages/DocsPage'
 import LoginPage from './pages/LoginPage'
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/detection" element={<DetectionPage />} />
+            <Route path="/image-detection" element={<ImageDetectionPage />} />
             <Route path="/history" element={<HistoryPage />} />
             <Route path="/docs" element={<DocsPage />} />
             <Route path="/login" element={<LoginPage />} />

@@ -1,4 +1,4 @@
-# 🎵 SwarParikshan - Audio Deepfake Detection Platform
+# 🎭 SwarParikshan - Multimedia AI Detection Platform
 
 <div align="center">
 
@@ -9,9 +9,9 @@
 ![Python](https://img.shields.io/badge/Python-3.8+-yellow.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-1.13+-red.svg)
 
-**Advanced Audio Deepfake Detection using CNN-BiLSTM-Attention Model**
+**Advanced AI-Generated Content Detection for Audio & Images**
 
-**Specialized for Indo-Aryan Languages** 🇮🇳
+**Audio Detection Specialized for Indo-Aryan Languages** 🇮🇳
 
 [Features](#features) • [Demo](#demo) • [Installation](#installation) • [Usage](#usage) • [API](#api) • [Documentation](#documentation)
 
@@ -21,7 +21,13 @@
 
 ## 📋 Overview
 
-**SwarParikshan** (स्वर परीक्षा - "Voice Examination") is a state-of-the-art audio deepfake detection platform that uses advanced deep learning to identify AI-generated or manipulated audio. Built with a powerful CNN-BiLSTM-Attention architecture, it achieves **98.61% validation accuracy** and **1.06% Equal Error Rate (EER)**.
+**SwarParikshan** (स्वर परीक्षा - "Voice Examination") is a comprehensive multimedia AI detection platform that identifies AI-generated or manipulated content in both audio and images:
+
+### 🎵 Audio Deepfake Detection
+Built with a powerful CNN-BiLSTM-Attention architecture, it achieves **98.61% validation accuracy** and **1.06% Equal Error Rate (EER)** for audio deepfake detection.
+
+### 🖼️ AI-Generated Image Detection
+Powered by a fine-tuned ResNet-18 model with Grad-CAM visualization, providing accurate detection of AI-generated images with visual explanations.
 
 ### 🇮🇳 Specialized for Indo-Aryan Languages
 
@@ -42,12 +48,14 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - Handling code-mixed speech patterns common in India
 
 ### Key Capabilities
-- 🎯 **High Accuracy**: 98.61% validation accuracy
-- 🔍 **Suspicious Region Detection**: Pinpoints exact time segments of manipulation
-- ⏱️ **Long Audio Support**: Handles files up to 10 minutes
+- 🎯 **High Accuracy**: 98.61% audio validation accuracy
+- 🖼️ **Image Detection**: ResNet-18 based AI-generated image detection
+- 🔍 **Suspicious Region Detection**: Pinpoints exact time segments of audio manipulation
+- 🌡️ **Grad-CAM Heatmaps**: Visual explanation for image predictions
+- ⏱️ **Long Audio Support**: Handles audio files up to 10 minutes
 - 🔐 **User Authentication**: Individual and organization accounts
 - 🔑 **API Access**: Programmatic integration with API keys
-- 📊 **Detailed Analysis**: 4-tab comprehensive analysis interface
+- 📊 **Detailed Analysis**: 4-tab comprehensive audio analysis interface
 - 🚀 **Production Ready**: Full-stack application with rate limiting
 
 ---
@@ -81,8 +89,15 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - **Attention Analysis Tab**: Visual heatmap of model focus
 - **Features Tab**: Acoustic feature statistics
 
+### 🖼️ Image Analysis
+- **Format Support**: JPG, JPEG, PNG (up to 10MB)
+- **AI Detection**: ResNet-18 classification model
+- **Grad-CAM Visualization**: Heatmap showing decision-making regions
+- **Confidence Scoring**: Detailed probability scores for Real vs AI-Generated
+- **Image Metadata**: Resolution and format information
+
 ### 🔄 User History
-- **Personal Dashboard**: View all your past analyses
+- **Personal Dashboard**: View all your past audio analyses
 - **Filtered History**: User-specific or global recent analyses
 - **Metadata Storage**: Complete analysis records in database
 
@@ -91,6 +106,7 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - **API Key Authentication**: Secure programmatic access
 - **Code Examples**: Python, JavaScript, and cURL samples
 - **H2 Database Console**: Built-in database management
+- **Microservices Architecture**: Separate services for audio and image detection
 
 ---
 
@@ -112,42 +128,41 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - **Database**: H2 (development), PostgreSQL-ready (production)
 - **API**: RESTful with CORS support
 
-#### ML Service
-- **Framework**: Flask (Python)
+#### ML Services
+- **Framework**: Flask (Python) - 2 microservices
 - **Deep Learning**: PyTorch
 - **Audio Processing**: LibROSA
-- **Model**: CNN-BiLSTM-Attention
-- **Features**: Mel-Spectrogram, LFCC, Delta features
+- **Audio Model**: CNN-BiLSTM-Attention
+- **Image Model**: ResNet-18 with Grad-CAM
+- **Features**: Mel-Spectrogram, LFCC, Delta features (audio), Visual heatmaps (image)
 
 ### System Architecture
 
 ```
-┌─────────────────┐
-│   React         │
-│   Frontend      │ ← http://localhost:3000
-│   (Port 3000)   │
-└────────┬────────┘
-         │ REST API
-         ↓
-┌─────────────────┐
-│   Spring Boot   │
-│   Backend       │ ← http://localhost:8081
-│   (Port 8081)   │
-└────────┬────────┘
-         │ HTTP
-         ↓
-┌─────────────────┐
-│   Flask ML      │
-│   Service       │ ← http://localhost:5000
-│   (Port 5000)   │
-└─────────────────┘
+┌─────────────────────────────────────────────┐
+│          React Frontend (Port 3000)         │
+│    Audio Detection  |  Image Detection      │
+└──────────┬──────────────────────┬───────────┘
+           │ REST API             │ REST API
+           ↓                      ↓
+┌──────────────────┐    ┌─────────────────────┐
+│  Spring Boot     │    │  Flask Image ML     │
+│  Backend         │    │  Service            │
+│  (Port 8081)     │    │  (Port 5001)        │
+└────────┬─────────┘    └──────────┬──────────┘
+         │ HTTP                    │
+         ↓                         ↓
+┌──────────────────┐    ┌─────────────────────┐
+│  Flask Audio ML  │    │  ResNet-18 Model    │
+│  Service         │    │  + Grad-CAM         │
+│  (Port 5000)     │    └─────────────────────┘
+└────────┬─────────┘
          │
          ↓
-┌─────────────────┐
-│   CNN-BiLSTM    │
-│   Attention     │
-│   Model         │
-└─────────────────┘
+┌──────────────────┐
+│  CNN-BiLSTM      │
+│  Attention Model │
+└──────────────────┘
 ```
 
 ---
@@ -188,15 +203,25 @@ npm run dev
 
 Frontend will start on `http://localhost:3000`
 
-### Setup Python ML Service
+### Setup Python ML Services
 
+#### Audio Detection Service
 ```bash
 cd python-service
 pip install -r requirements.txt
 python model_inference.py
 ```
 
-ML Service will start on `http://localhost:5000`
+Audio ML Service will start on `http://localhost:5000`
+
+#### Image Detection Service
+```bash
+cd image-service
+pip install -r requirements.txt
+python image_inference.py
+```
+
+Image ML Service will start on `http://localhost:5001`
 
 ---
 
@@ -206,9 +231,14 @@ ML Service will start on `http://localhost:5000`
 
 1. **Open Application**: Navigate to `http://localhost:3000`
 2. **Register Account**: Click "Register" and create an account
-3. **Upload Audio**: Go to "Detection" and upload an audio file
-4. **View Results**: See prediction, confidence, and suspicious regions
-5. **Detailed Analysis**: Click "Show Detailed Analysis" for comprehensive insights
+3. **Audio Detection**: 
+   - Go to "Audio" tab and upload an audio file
+   - View prediction, confidence, and suspicious regions
+   - Click "Show Detailed Analysis" for comprehensive insights
+4. **Image Detection**:
+   - Go to "Image" tab and upload an image file
+   - View prediction with confidence scores
+   - See Grad-CAM heatmap visualization
 
 ### API Usage
 
@@ -244,7 +274,7 @@ curl -X POST http://localhost:8081/api/analyze \
   -F "audio=@audio.wav"
 ```
 
-#### Python Example
+#### Python Example - Audio Detection
 
 ```python
 import requests
@@ -268,6 +298,27 @@ for region in result['suspicious_regions']:
     print(f"  Level: {region['suspicion_level']}")
 ```
 
+#### Python Example - Image Detection
+
+```python
+import requests
+
+url = "http://localhost:5001/predict"
+
+with open("image.jpg", "rb") as f:
+    files = {"image": f}
+    response = requests.post(url, files=files)
+
+result = response.json()
+print(f"Prediction: {result['prediction']}")
+print(f"Confidence: {result['confidence']}%")
+print(f"Real Score: {result['scores']['real']}%")
+print(f"Fake Score: {result['scores']['fake']}%")
+
+# Heatmap is available as base64 encoded image
+print(f"Heatmap available: {'heatmap' in result}")
+```
+
 ---
 
 ## 🔌 API Reference
@@ -282,6 +333,8 @@ for region in result['suspicious_regions']:
 
 ### Analysis Endpoints
 
+#### Audio Analysis (Backend - Port 8081)
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/analyze` | Analyze audio file |
@@ -291,8 +344,16 @@ for region in result['suspicious_regions']:
 | GET | `/api/usage-limit` | Check demo usage limit |
 | GET | `/api/health` | Backend health check |
 
+#### Image Analysis (Image Service - Port 5001)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/predict` | Analyze image file |
+| GET | `/health` | Image service health check |
+
 ### Response Format
 
+#### Audio Analysis Response
 ```json
 {
   "prediction": "AI-GENERATED",
@@ -327,6 +388,29 @@ for region in result['suspicious_regions']:
     "architecture": "CNN-BiLSTM-Attention",
     "validation_eer": "1.06%",
     "validation_accuracy": "98.61%"
+  }
+}
+```
+
+#### Image Analysis Response
+```json
+{
+  "prediction": "AI-GENERATED",
+  "confidence": 92.45,
+  "scores": {
+    "real": 7.55,
+    "fake": 92.45
+  },
+  "image_info": {
+    "width": 1024,
+    "height": 768,
+    "format": "JPEG"
+  },
+  "heatmap": "base64_encoded_image_data...",
+  "model_info": {
+    "architecture": "ResNet-18",
+    "input_size": "224x224",
+    "num_classes": 2
   }
 }
 ```
@@ -443,9 +527,9 @@ This work addresses the gap in deepfake detection research for:
 
 ## 🧠 Model Details
 
-### CNN-BiLSTM-Attention Architecture
+### Audio Detection: CNN-BiLSTM-Attention Architecture
 
-The model combines three powerful components:
+The audio detection model combines three powerful components:
 
 1. **CNN Layers**: Extract spatial features from spectrograms
    - 6 channels: Mel, Delta-Mel, Delta2-Mel, LFCC, Delta-LFCC, Delta2-LFCC
@@ -459,18 +543,47 @@ The model combines three powerful components:
    - 4 attention heads
    - Weighted pooling for final embedding
 
-### Performance Metrics
+#### Audio Model Performance Metrics
 - **Validation Accuracy**: 98.61%
 - **Validation EER**: 1.06%
 - **Epoch**: 21 (best model)
 - **Optimized for**: Indo-Aryan languages (Hindi, Marathi, Bengali, Gujarati, Punjabi, Urdu, etc.)
 - **Training Data**: Diverse Indian language speech corpus with regional variations
 
-### Features Extracted
+#### Audio Features Extracted
 - **Mel-Spectrogram**: 80 mel-frequency bins
 - **LFCC**: Linear Frequency Cepstral Coefficients
 - **Delta Features**: First and second-order derivatives
 - **Attention Weights**: Temporal importance scores
+
+---
+
+### Image Detection: ResNet-18 with Grad-CAM
+
+The image detection model uses a fine-tuned ResNet-18 architecture:
+
+1. **ResNet-18 Backbone**: Pre-trained convolutional neural network
+   - 18 layers deep
+   - Modified final layer for binary classification (Real vs AI-Generated)
+   - Transfer learning from ImageNet
+
+2. **Grad-CAM Visualization**: Explainable AI for decision transparency
+   - Highlights regions that influenced the prediction
+   - Uses gradient-weighted class activation mapping
+   - Provides visual heatmap overlays
+
+#### Image Model Architecture
+- **Input**: 224x224 RGB images
+- **Output**: Binary classification (Real vs AI-Generated)
+- **Classes**: 2 (Real, AI-Generated)
+- **Visualization**: Grad-CAM heatmaps
+- **Framework**: PyTorch with pytorch-grad-cam
+
+#### Image Model Features
+- **Color Patterns**: Learns AI-generated color anomalies
+- **Texture Analysis**: Detects synthetic texture patterns
+- **Artifact Detection**: Identifies GAN-specific artifacts
+- **Spatial Consistency**: Checks for unnatural spatial relationships
 
 ---
 
@@ -616,11 +729,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- CNN-BiLSTM-Attention model architecture
+- CNN-BiLSTM-Attention model architecture for audio deepfake detection
+- ResNet-18 architecture and AI-Generated Image Detector by [@vivek0019](https://github.com/vivek0019/AI-Generated-Image-Detector)
 - LibROSA for audio processing
+- PyTorch and pytorch-grad-cam teams
 - Spring Boot framework
 - React and Vite communities
-- PyTorch team
 - **Indian language speech research community**
 - **Contributors to Indo-Aryan language datasets**
 
@@ -642,9 +756,9 @@ For questions or support, please open an issue on GitHub or contact:
 
 <div align="center">
 
-**Made with ❤️ for combating audio deepfakes in India and Indo-Aryan languages**
+**Made with ❤️ for combating AI-generated misinformation**
 
-🇮🇳 Supporting linguistic diversity and digital authenticity 🇮🇳
+🎵 Audio deepfakes in Indo-Aryan languages 🇮🇳 | 🖼️ AI-generated images worldwide 🌍
 
 ⭐ Star this repository if you find it helpful!
 
