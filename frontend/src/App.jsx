@@ -10,6 +10,7 @@ import DocsPage from './pages/DocsPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ApiKeysPage from './pages/ApiKeysPage'
+import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/api-keys" element={<ApiKeysPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
           </Routes>
         </div>
       </AuthProvider>

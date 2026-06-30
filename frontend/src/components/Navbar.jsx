@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { HiHome, HiShieldCheck, HiClipboardList, HiBookOpen, HiKey, HiLogin, HiUserAdd, HiLogout, HiUser, HiMenu, HiX, HiPhotograph } from 'react-icons/hi'
+import { HiHome, HiShieldCheck, HiClipboardList, HiBookOpen, HiKey, HiLogin, HiUserAdd, HiLogout, HiUser, HiMenu, HiX, HiPhotograph, HiCog } from 'react-icons/hi'
 import { useAuth } from '../context/AuthContext'
 
 const Navbar = () => {
@@ -110,6 +110,14 @@ const Navbar = () => {
                       <p className="font-medium text-sm truncate">{user.email}</p>
                     </div>
                     <Link
+                      to="/settings"
+                      onClick={() => setShowUserMenu(false)}
+                      className="flex items-center space-x-2 px-4 py-2 hover:bg-navy-700 transition-colors"
+                    >
+                      <HiCog className="text-lg" />
+                      <span>Settings</span>
+                    </Link>
+                    <Link
                       to="/api-keys"
                       onClick={() => setShowUserMenu(false)}
                       className="flex items-center space-x-2 px-4 py-2 hover:bg-navy-700 transition-colors"
@@ -167,6 +175,7 @@ const Navbar = () => {
               <Link to="/docs" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Docs</Link>
               {isAuthenticated ? (
                 <>
+                  <Link to="/settings" className="px-4 py-2 hover:bg-navy-700 rounded-lg">Settings</Link>
                   <Link to="/api-keys" className="px-4 py-2 hover:bg-navy-700 rounded-lg">API Keys</Link>
                   <button onClick={handleLogout} className="px-4 py-2 hover:bg-navy-700 rounded-lg text-left text-red-400">
                     Logout
