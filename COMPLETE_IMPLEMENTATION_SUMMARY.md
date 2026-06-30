@@ -1,5 +1,7 @@
 # 🎉 SwarParikshan - Complete Implementation Summary
 
+**Specialized Audio Deepfake Detection for Indo-Aryan Languages** 🇮🇳
+
 ## ✅ All Features Successfully Implemented!
 
 ---
