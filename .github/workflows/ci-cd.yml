@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: tanuj-cmd-15/swarparikshan
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          cache: 'maven'
+
+      - name: Lint Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run lint
+
+      - name: Test Frontend
+        run: |
+          cd frontend
+          npm test -- --passWithNoTests
+
+      - name: Lint Python Services
+        run: |
+          pip install flake8 black pylint
+          flake8 python-service/ image-service/ --max-line-length=120
+          black --check python-service/ image-service/
+
+      - name: Test Backend
