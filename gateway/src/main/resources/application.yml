@@ -1,0 +1,130 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway
+  
+  cloud:
+    gateway:
+      routes:
+        # Auth Service Routes
+        - id: auth-service
+          uri: http://${AUTH_SERVICE_HOST:localhost}:8082
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=0
+        
+        # Trial Service Routes
+        - id: trial-service
+          uri: http://${TRIAL_SERVICE_HOST:localhost}:8083
+          predicates:
+            - Path=/subscription/**
+          filters:
+            - StripPrefix=0
+            - name: JwtValidation
+        
+        # Backend Service Routes
+        - id: backend-service
+          uri: http://${BACKEND_SERVICE_HOST:localhost}:8081
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=0
+            - name: JwtValidation
+            - name: RateLimit
+        
+        # Support Service Routes
+        - id: support-service
+          uri: http://${SUPPORT_SERVICE_HOST:localhost}:8084
+          predicates:
+            - Path=/support/**
+          filters:
+            - StripPrefix=0
+            - name: JwtValidation
+        
+        # Notification Service Routes
+        - id: notification-service
+          uri: http://${NOTIFICATION_SERVICE_HOST:localhost}:8085
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - StripPrefix=0
+            - name: JwtValidation
+      
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+              - "http://localhost:3000"
+              - "http://localhost:8080"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders: "*"
+            allowCredentials: true
+            maxAge: 3600
+      
+      default-filters:
+        - name: AddResponseHeader
+          args:
+            name: X-Response-Time
+            value: ${X-Response-Time}
+        - name: AddResponseHeader
+          args:
+            name: X-Gateway
+            value: MayaBhedak-Gateway
+
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+
+# JWT Configuration
+jwt:
+  public-key: ${JWT_PUBLIC_KEY:classpath:secrets/public_key.pem}
+
+# Rate Limiting Configuration  
+rate-limit:
+  free-trial:
+    requests-per-minute: 10
+  pro:
+    requests-per-minute: 100
+  enterprise:
+    requests-per-minute: 1000
+
+# Security Headers
+security:
+  headers:
+    strict-transport-security: max-age=31536000; includeSubDomains
+    content-security-policy: default-src 'self'
+    x-frame-options: DENY
+    x-content-type-options: nosniff
+    x-xss-protection: 1; mode=block
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics,gateway
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+# Logging
+logging:
+  level:
+    root: INFO
+    com.mayabhedak.gateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
