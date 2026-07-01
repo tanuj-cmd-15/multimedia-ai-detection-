@@ -234,12 +234,8 @@ const DetailedAnalysis = ({ result }) => {
 
             {result.modelInfo && (
               <div className="bg-navy-700 p-4 rounded-lg">
-                <h3 className="font-semibold mb-3">Model Information</h3>
+                <h3 className="font-semibold mb-3">Detection Performance</h3>
                 <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-gray-400">Architecture</span>
-                    <span className="font-medium">{result.modelInfo.architecture}</span>
-                  </div>
                   <div className="flex justify-between">
                     <span className="text-gray-400">Validation EER</span>
                     <span className="font-medium text-accent-green">{result.modelInfo.validationEer}</span>

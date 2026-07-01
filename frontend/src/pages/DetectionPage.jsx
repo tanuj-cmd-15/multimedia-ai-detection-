@@ -78,7 +78,7 @@ const DetectionPage = () => {
             Audio <span className="gradient-text">Deepfake Detection</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Upload an audio file to analyze if it's real or AI-generated using our advanced CNN-BiLSTM-Attention model
+            Upload an audio file to analyze if it's real or AI-generated using our advanced deep learning model
           </p>
         </motion.div>
         
@@ -201,7 +201,7 @@ const DetectionPage = () => {
                     <p className="font-semibold mb-2">How it works:</p>
                     <ul className="space-y-1 text-gray-400">
                       <li>• Upload an audio file (max 50MB)</li>
-                      <li>• Our CNN-BiLSTM-Attention model analyzes the audio</li>
+                      <li>• Our advanced deep learning model analyzes the audio</li>
                       <li>• Get real-time results with confidence scores</li>
                       <li>• View detailed feature analysis and attention heatmaps</li>
                     </ul>

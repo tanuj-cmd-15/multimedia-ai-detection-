@@ -309,41 +309,20 @@ const TechnologyContent = () => (
         <div className="bg-navy-700 p-6 rounded-lg">
           <div className="flex items-center space-x-3 mb-4">
             <HiCube className="text-4xl text-accent-blue" />
-            <h3 className="text-2xl font-bold">Model Architecture</h3>
+            <h3 className="text-2xl font-bold">Deep Learning Detection</h3>
           </div>
           <p className="text-gray-300 mb-4">
-            CNN-BiLSTM-Attention: A hybrid deep learning architecture combining the strengths of convolutional neural networks, 
-            recurrent neural networks, and attention mechanisms.
+            Our proprietary deep learning system combines advanced neural network architectures for highly accurate detection of AI-generated content. The model analyzes multiple acoustic and spectral features to identify synthetic patterns.
           </p>
-          <div className="bg-navy-900 p-4 rounded font-mono text-sm text-gray-300 overflow-x-auto">
-            <pre>{`
-Input: (Batch, 6 Channels, 80 Freq Bins, ~400 Time Frames)
-   ↓
-CNN Encoder (4 blocks)
-   - Conv2D + BatchNorm + GELU + MaxPool
-   - Channels: 6 → 32 → 64 → 128 → 256
-   ↓
-Frequency Pooling (Adaptive → 4 bins)
-   ↓
-Reshape for Sequence (Batch, Time, 1024 Features)
-   ↓
-BiLSTM (2 layers)
-   - 256 hidden units per direction
-   - Total output: 512 features
-   ↓
-Multi-Head Attention (4 heads)
-   - Self-attention over time steps
-   - Learned attention weights
-   ↓
-Attention Pooling
-   - Weighted sum over time dimension
-   ↓
-Classification Head
-   - Dense: 512 → 256 → 2 classes
-   - GELU + Dropout + LayerNorm
-   ↓
-Output: [P(Real), P(Fake)]
-            `}</pre>
+          <div className="bg-navy-900 p-4 rounded-lg">
+            <h4 className="font-semibold mb-3 text-accent-blue">Key Capabilities</h4>
+            <ul className="space-y-2 text-gray-300">
+              <li>• Multi-dimensional feature extraction from audio signals</li>
+              <li>• Temporal pattern analysis across audio sequences</li>
+              <li>• Attention-based focus on suspicious regions</li>
+              <li>• Real-time inference with high accuracy</li>
+              <li>• Specialized training on Indo-Aryan language datasets</li>
+            </ul>
           </div>
         </div>
         
@@ -457,7 +436,6 @@ audio: [audio file]`,
     "attentionConcentration": 0.1234
   },
   "modelInfo": {
-    "architecture": "CNN-BiLSTM-Attention",
     "validationEer": "2.34%",
     "validationAccuracy": "98.4%"
   }
@@ -607,7 +585,7 @@ const FAQContent = () => (
       },
       {
         question: 'How accurate is the detection?',
-        answer: 'Our CNN-BiLSTM-Attention model achieves approximately 98.4% accuracy on validation datasets. However, accuracy can vary depending on the quality of the audio, type of synthesis method used, and other factors. We provide confidence scores with each prediction to indicate certainty.'
+        answer: 'Our advanced deep learning model achieves approximately 98.4% accuracy on validation datasets. However, accuracy can vary depending on the quality of the audio, type of synthesis method used, and other factors. We provide confidence scores with each prediction to indicate certainty.'
       },
       {
         question: 'What audio formats are supported?',

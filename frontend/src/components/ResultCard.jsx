@@ -119,15 +119,14 @@ const ResultCard = ({ result, onReset }) => {
         </p>
       </div>
       
-      {/* Model Info */}
+      {/* Model Performance Info */}
       {result.modelInfo && (
         <div className="p-4 bg-blue-500/10 border border-blue-500/50 rounded-lg">
           <div className="flex items-start space-x-3">
             <HiInformationCircle className="text-accent-blue text-xl flex-shrink-0 mt-0.5" />
             <div className="text-sm">
-              <p className="font-semibold mb-2">Model Information</p>
+              <p className="font-semibold mb-2">Detection Performance</p>
               <div className="space-y-1 text-gray-400">
-                <p>Architecture: {result.modelInfo.architecture}</p>
                 <p>Validation EER: {result.modelInfo.validationEer}</p>
                 <p>Validation Accuracy: {result.modelInfo.validationAccuracy}</p>
               </div>

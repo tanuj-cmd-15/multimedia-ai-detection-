@@ -65,3 +65,14 @@ yarn-error.log*
 tmp/
 temp/
 *.tmp
+
+# JWT Keys (SECURITY - Never commit these!)
+**/secrets/
+private_key.pem
+public_key.pem
+*.pem
+
+# Docker volumes
+postgres_data/
+redis_data/
+minio_data/

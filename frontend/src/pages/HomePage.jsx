@@ -155,12 +155,12 @@ const HomePage = () => {
           {[
             {
               title: 'Audio Detection',
-              description: 'CNN-BiLSTM-Attention model with 98.61% accuracy. Detects TTS, voice conversion, and cloning attacks. Optimized for Hindi, Marathi, Bengali, and other Indo-Aryan languages.',
+              description: 'Advanced deep learning model with 98.61% accuracy. Detects TTS, voice conversion, and cloning attacks. Optimized for Hindi, Marathi, Bengali, and other Indo-Aryan languages.',
               color: 'text-accent-blue'
             },
             {
               title: 'Image Detection',
-              description: 'ResNet-18 architecture with Grad-CAM explainability. Identifies AI-generated images from GANs, diffusion models, and other synthetic sources.',
+              description: 'State-of-the-art architecture with Grad-CAM explainability. Identifies AI-generated images from GANs, diffusion models, and other synthetic sources.',
               color: 'text-accent-green'
             },
             {

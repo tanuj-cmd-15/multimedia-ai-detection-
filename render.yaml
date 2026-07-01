@@ -1,0 +1,70 @@
+# MayaBhedak - Render.com Deployment
+# Deploy entire stack with ONE click!
+
+services:
+  # Frontend (React + Vite)
+  - type: web
+    name: mayabhedak-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://mayabhedak-backend.onrender.com
+      - key: VITE_AUDIO_API_URL
+        value: https://mayabhedak-audio.onrender.com
+      - key: VITE_IMAGE_API_URL
+        value: https://mayabhedak-image.onrender.com
+
+  # Backend (Spring Boot)
+  - type: web
+    name: mayabhedak-backend
+    env: java
+    buildCommand: cd backend && mvn clean package -DskipTests
+    startCommand: java -jar backend/target/*.jar
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mayabhedak-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: mayabhedak-redis
+          type: redis
+          property: connectionString
+
+  # Audio Detection (Python + Flask)
+  - type: web
+    name: mayabhedak-audio
+    env: python
+    buildCommand: cd python-service && pip install -r requirements.txt
+    startCommand: cd python-service && python model_inference.py
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MODEL_PATH
+        value: /opt/render/project/src/models/ckpt_best.pth
+
+  # Image Detection (Python + Flask)
+  - type: web
+    name: mayabhedak-image
+    env: python
+    buildCommand: cd image-service && pip install -r requirements.txt
+    startCommand: cd image-service && python image_inference.py
+    envVars:
+      - key: PORT
+        value: 5001
+      - key: MODEL_PATH
+        value: /opt/render/project/src/models/best_model.pth
+
+databases:
+  - name: mayabhedak-db
+    databaseName: mayabhedak
+    user: mayabhedak_user
+    plan: free
+
+  - name: mayabhedak-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru

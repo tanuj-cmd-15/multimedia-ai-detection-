@@ -45,7 +45,9 @@ const ImageDetectionPage = () => {
     
     try {
       const response = await analyzeImage(file)
-      setResult(response)
+      // If response contains analysis wrapper from backend
+      const analysisData = response.analysis || response
+      setResult(analysisData)
     } catch (err) {
       setError(err.response?.data?.error || 'Failed to analyze image. Please try again.')
     } finally {
@@ -75,7 +77,7 @@ const ImageDetectionPage = () => {
             AI-Generated <span className="gradient-text">Image Detection</span>
           </h1>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Upload an image to check if it's real or AI-generated using our ResNet-18 model with Grad-CAM visualization
+            Upload an image to check if it's real or AI-generated using our advanced deep learning model with Grad-CAM visualization
           </p>
         </motion.div>
         
@@ -206,7 +208,7 @@ const ImageDetectionPage = () => {
                     <p className="font-semibold mb-2">How it works:</p>
                     <ul className="space-y-1 text-gray-400">
                       <li>• Upload an image (max 10MB)</li>
-                      <li>• ResNet-18 model analyzes the image</li>
+                      <li>• Advanced deep learning model analyzes the image</li>
                       <li>• Get real-time results with confidence scores</li>
                       <li>• View Grad-CAM heatmap visualization</li>
                     </ul>
@@ -300,21 +302,7 @@ const ImageDetectionPage = () => {
                   </div>
                 )}
                 
-                {/* Model Info */}
-                <div className="p-4 bg-blue-500/10 border border-blue-500/50 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <HiInformationCircle className="text-accent-blue text-xl flex-shrink-0 mt-0.5" />
-                    <div className="text-sm">
-                      <p className="font-semibold mb-2">Model Information</p>
-                      <div className="space-y-1 text-gray-400">
-                        <p>Architecture: {result.model_info.architecture}</p>
-                        <p>Input Size: {result.model_info.input_size}</p>
-                        <p>Classes: {result.model_info.num_classes}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
+
                 {/* Interpretation */}
                 <div className={`p-4 rounded-lg border ${
                   isReal

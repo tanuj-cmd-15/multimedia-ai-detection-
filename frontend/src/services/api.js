@@ -117,12 +117,51 @@ export const analyzeImage = async (imageFile) => {
   const formData = new FormData();
   formData.append('image', imageFile);
   
-  const response = await axios.post('http://localhost:5001/predict', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const user = getUser()
+  const headers = {
+    'Content-Type': 'multipart/form-data',
+  }
   
+  if (user) {
+    if (user.apiKey) {
+      headers['X-API-Key'] = user.apiKey
+    } else {
+      headers['X-User-Email'] = user.email
+    }
+  } else {
+    headers['X-Machine-Id'] = getMachineId()
+  }
+  
+  const response = await api.post('/analyze-image', formData, { headers });
+  return response.data;
+};
+
+export const getRecentImageAnalyses = async () => {
+  const user = getUser()
+  const headers = {}
+  
+  if (user && user.email) {
+    headers['X-User-Email'] = user.email
+  }
+  
+  const response = await api.get('/image-analyses/recent', { headers });
+  return response.data;
+};
+
+export const getAllImageAnalyses = async () => {
+  const user = getUser()
+  const headers = {}
+  
+  if (user && user.email) {
+    headers['X-User-Email'] = user.email
+  }
+  
+  const response = await api.get('/image-analyses', { headers });
+  return response.data;
+};
+
+export const getImageAnalysisById = async (id) => {
+  const response = await api.get(`/image-analyses/${id}`);
   return response.data;
 };
 

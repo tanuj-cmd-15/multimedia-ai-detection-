@@ -24,10 +24,10 @@
 **SwarParikshan** (स्वर परीक्षा - "Voice Examination") is a comprehensive multimedia AI detection platform that identifies AI-generated or manipulated content in both audio and images:
 
 ### 🎵 Audio Deepfake Detection
-Built with a powerful CNN-BiLSTM-Attention architecture, it achieves **98.61% validation accuracy** and **1.06% Equal Error Rate (EER)** for audio deepfake detection.
+Built with advanced deep learning technology, it achieves **98.61% validation accuracy** and **1.06% Equal Error Rate (EER)** for audio deepfake detection.
 
 ### 🖼️ AI-Generated Image Detection
-Powered by a fine-tuned ResNet-18 model with Grad-CAM visualization, providing accurate detection of AI-generated images with visual explanations.
+Powered by state-of-the-art deep learning with Grad-CAM visualization, providing accurate detection of AI-generated images with visual explanations.
 
 ### 🇮🇳 Specialized for Indo-Aryan Languages
 
@@ -49,7 +49,7 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 
 ### Key Capabilities
 - 🎯 **High Accuracy**: 98.61% audio validation accuracy
-- 🖼️ **Image Detection**: ResNet-18 based AI-generated image detection
+- 🖼️ **Image Detection**: Advanced AI-generated image detection
 - 🔍 **Suspicious Region Detection**: Pinpoints exact time segments of audio manipulation
 - 🌡️ **Grad-CAM Heatmaps**: Visual explanation for image predictions
 - ⏱️ **Long Audio Support**: Handles audio files up to 10 minutes
@@ -74,7 +74,7 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - **Multi-lingual Support**: Handles code-mixed and regional accent variations
 - **File Size**: Up to 50MB per file
 - **Duration**: 4 seconds to 10 minutes
-- **Real-time Processing**: Fast inference with CNN-BiLSTM-Attention model
+- **Real-time Processing**: Fast inference with advanced deep learning
 - **Confidence Scoring**: Detailed probability scores for Real vs AI-Generated
 
 ### 🔍 Suspicious Region Detection
@@ -91,13 +91,18 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 
 ### 🖼️ Image Analysis
 - **Format Support**: JPG, JPEG, PNG (up to 10MB)
-- **AI Detection**: ResNet-18 classification model
+- **AI Detection**: Advanced classification model
 - **Grad-CAM Visualization**: Heatmap showing decision-making regions
 - **Confidence Scoring**: Detailed probability scores for Real vs AI-Generated
 - **Image Metadata**: Resolution and format information
 
 ### 🔄 User History
-- **Personal Dashboard**: View all your past audio analyses
+- **Multi-Modal History**: View all your audio and image detection analyses
+- **Tab-Based Filtering**: Filter by All, Audio, Images, or Videos
+- **Type-Specific Metadata**: Shows duration/sample rate for audio, dimensions/format for images
+- **Smart Timestamps**: Relative time display (e.g., "2 mins ago", "3 days ago")
+- **Visual Icons**: Easy identification of analysis type with icons
+- **Sorted by Recency**: Most recent analyses appear first
 - **Filtered History**: User-specific or global recent analyses
 - **Metadata Storage**: Complete analysis records in database
 
@@ -132,8 +137,8 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
 - **Framework**: Flask (Python) - 2 microservices
 - **Deep Learning**: PyTorch
 - **Audio Processing**: LibROSA
-- **Audio Model**: CNN-BiLSTM-Attention
-- **Image Model**: ResNet-18 with Grad-CAM
+- **Audio Model**: Advanced hybrid neural network
+- **Image Model**: Deep learning with Grad-CAM explainability
 - **Features**: Mel-Spectrogram, LFCC, Delta features (audio), Visual heatmaps (image)
 
 ### System Architecture
@@ -153,15 +158,15 @@ The model has been trained and validated on diverse Indo-Aryan language datasets
          │ HTTP                    │
          ↓                         ↓
 ┌──────────────────┐    ┌─────────────────────┐
-│  Flask Audio ML  │    │  ResNet-18 Model    │
+│  Flask Audio ML  │    │  Image Detection    │
 │  Service         │    │  + Grad-CAM         │
 │  (Port 5000)     │    └─────────────────────┘
 └────────┬─────────┘
          │
          ↓
 ┌──────────────────┐
-│  CNN-BiLSTM      │
-│  Attention Model │
+│  Deep Learning   │
+│  Audio Model     │
 └──────────────────┘
 ```
 
@@ -385,7 +390,6 @@ print(f"Heatmap available: {'heatmap' in result}")
     "attention_concentration": 0.0567
   },
   "model_info": {
-    "architecture": "CNN-BiLSTM-Attention",
     "validation_eer": "1.06%",
     "validation_accuracy": "98.61%"
   }
@@ -408,7 +412,6 @@ print(f"Heatmap available: {'heatmap' in result}")
   },
   "heatmap": "base64_encoded_image_data...",
   "model_info": {
-    "architecture": "ResNet-18",
     "input_size": "224x224",
     "num_classes": 2
   }
@@ -527,21 +530,21 @@ This work addresses the gap in deepfake detection research for:
 
 ## 🧠 Model Details
 
-### Audio Detection: CNN-BiLSTM-Attention Architecture
+### Audio Detection: Advanced Deep Learning
 
-The audio detection model combines three powerful components:
+The audio detection model uses proprietary deep learning technology combining multiple neural network techniques:
 
-1. **CNN Layers**: Extract spatial features from spectrograms
+1. **Feature Extraction**: Multi-channel acoustic analysis
    - 6 channels: Mel, Delta-Mel, Delta2-Mel, LFCC, Delta-LFCC, Delta2-LFCC
-   - Multiple convolutional blocks with batch normalization
+   - Advanced convolutional processing with batch normalization
 
-2. **Bidirectional LSTM**: Capture temporal dependencies
-   - 2 layers with 128 hidden units
-   - Dropout for regularization
+2. **Temporal Analysis**: Sequential pattern recognition
+   - Multi-layer processing with dropout regularization
+   - Captures long-term audio dependencies
 
-3. **Multi-Head Attention**: Focus on important time segments
-   - 4 attention heads
-   - Weighted pooling for final embedding
+3. **Attention Mechanism**: Intelligent focus on suspicious regions
+   - Multi-head attention for parallel analysis
+   - Weighted pooling for final decision
 
 #### Audio Model Performance Metrics
 - **Validation Accuracy**: 98.61%
@@ -558,21 +561,21 @@ The audio detection model combines three powerful components:
 
 ---
 
-### Image Detection: ResNet-18 with Grad-CAM
+### Image Detection: Deep Learning with Explainability
 
-The image detection model uses a fine-tuned ResNet-18 architecture:
+The image detection model uses advanced deep learning with visual explainability:
 
-1. **ResNet-18 Backbone**: Pre-trained convolutional neural network
-   - 18 layers deep
-   - Modified final layer for binary classification (Real vs AI-Generated)
-   - Transfer learning from ImageNet
+1. **Deep Convolutional Network**: Pre-trained on large-scale image datasets
+   - Multiple layers for hierarchical feature learning
+   - Binary classification (Real vs AI-Generated)
+   - Transfer learning for improved accuracy
 
 2. **Grad-CAM Visualization**: Explainable AI for decision transparency
    - Highlights regions that influenced the prediction
    - Uses gradient-weighted class activation mapping
    - Provides visual heatmap overlays
 
-#### Image Model Architecture
+#### Image Model Capabilities
 - **Input**: 224x224 RGB images
 - **Output**: Binary classification (Real vs AI-Generated)
 - **Classes**: 2 (Real, AI-Generated)
@@ -729,8 +732,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- CNN-BiLSTM-Attention model architecture for audio deepfake detection
-- ResNet-18 architecture and AI-Generated Image Detector by [@vivek0019](https://github.com/vivek0019/AI-Generated-Image-Detector)
+- Advanced deep learning research for audio deepfake detection
+- AI-Generated Image Detector by [@vivek0019](https://github.com/vivek0019/AI-Generated-Image-Detector)
 - LibROSA for audio processing
 - PyTorch and pytorch-grad-cam teams
 - Spring Boot framework
