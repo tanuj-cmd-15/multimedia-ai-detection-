@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Ticket Update</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .content { background: #ffffff; padding: 30px; border: 1px solid #e0e0e0; border-top: none; }
+        .ticket-info { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .message-box { background: #e3f2fd; border-left: 4px solid #2196f3; padding: 15px; margin: 20px 0; }
+        .button { display: inline-block; padding: 12px 30px; background: #4facfe; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+        .footer { text-align: center; padding: 20px; color: #777; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💬 Ticket Update</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ user_name }},</p>
+            
+            <p>Your support ticket has been updated:</p>
+            
+            <div class="ticket-info">
+                <p><strong>Ticket Number:</strong> {{ ticket_number }}</p>
+                <p><strong>Subject:</strong> {{ ticket_subject }}</p>
+            </div>
+            
+            <h3>New Message:</h3>
+            <div class="message-box">
+                {{ message }}
+            </div>
+            
+            <p style="text-align: center;">
+                <a href="{{ ticket_url }}" class="button">View Full Ticket</a>
+            </p>
+            
+            <p>You can reply to this ticket directly from the support portal.</p>
+            
+            <p>Best regards,<br>
+            <strong>MayaBhedak Support Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>© 2024 MayaBhedak. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>

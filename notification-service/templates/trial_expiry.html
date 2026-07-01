@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Trial is Expiring Soon</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+        .content { background: #ffffff; padding: 30px; border: 1px solid #e0e0e0; border-top: none; }
+        .alert-box { background: #fff3cd; border: 2px solid #ffc107; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .usage-stats { background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .stat { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #dee2e6; }
+        .button { display: inline-block; padding: 12px 30px; background: #f5576c; color: white; text-decoration: none; border-radius: 5px; margin: 20px 0; font-weight: bold; }
+        .footer { text-align: center; padding: 20px; color: #777; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⏰ Your Trial is Expiring Soon!</h1>
+        </div>
+        <div class="content">
+            <p>Hi {{ user_name }},</p>
+            
+            <div class="alert-box">
+                <h3 style="margin-top: 0;">⚠️ {{ days_remaining }} Day{% if days_remaining != 1 %}s{% endif %} Remaining</h3>
+                <p>Your MayaBhedak free trial will expire soon. Upgrade now to continue detecting AI-generated media.</p>
+            </div>
+            
+            <h3>Your Trial Usage:</h3>
+            <div class="usage-stats">
+                <div class="stat">
+                    <span>🎵 Audio Detections:</span>
+                    <strong>{{ audio_used }} / 50</strong>
+                </div>
+                <div class="stat">
+                    <span>🖼️ Image Detections:</span>
+                    <strong>{{ image_used }} / 50</strong>
+                </div>
+            </div>
+            
+            <h3>Why Upgrade to PRO?</h3>
+            <ul>
+                <li>✅ <strong>1000 Audio Detections</strong> per month</li>
+                <li>✅ <strong>1000 Image Detections</strong> per month</li>
+                <li>✅ <strong>Bulk Upload</strong> capability</li>
+                <li>✅ <strong>API Access</strong> for integration</li>
+                <li>✅ <strong>Priority Support</strong></li>
+                <li>✅ Only <strong>₹999/month</strong></li>
+            </ul>
+            
+            <p style="text-align: center;">
+                <a href="{{ upgrade_url }}" class="button">Upgrade to PRO Now</a>
+            </p>
+            
+            <p><small>Don't want to upgrade? No problem! Your trial will automatically expire, and you can always come back later.</small></p>
+            
+            <p>Best regards,<br>
+            <strong>The MayaBhedak Team</strong></p>
+        </div>
+        <div class="footer">
+            <p>© 2024 MayaBhedak. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply.</p>
+        </div>
+    </div>
+</body>
+</html>

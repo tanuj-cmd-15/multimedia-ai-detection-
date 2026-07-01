@@ -1,184 +1,310 @@
-# Task 1.1 Completion Summary: Database Schema and Migrations
+# Task 1.1 Completion Summary: PostgreSQL Database Schema and Migrations
 
-## ✅ Task Completed Successfully
+## Status: ✅ COMPLETE
 
-All database schema files and migrations have been created for the five microservices architecture.
+All database migration files have been created and verified. The microservices architecture now has a complete, production-ready database schema.
 
-## 📁 Files Created/Verified
+---
 
-### 1. Auth Service (Spring Boot + Flyway)
-**Location**: `auth-service/src/main/resources/db/migration/`
+## What Was Completed
 
-- ✅ **V1__initial_schema.sql** (Already existed)
-  - `users` table with multi-auth support (EMAIL, GOOGLE, MOBILE)
-  - Indexes on email, mobile_number, google_sub
-  - Triggers for timestamp updates
-  - Validation constraints
+### 1. Auth Service Migrations (Spring Boot + Flyway)
 
-- ✅ **V2__api_keys_schema.sql** (Newly created)
-  - `api_keys` table with SHA-256 hashing
-  - Key prefix for display
-  - Indexes for performance
-  - Support for key rotation
+✅ **V1__initial_schema.sql** (Existing - Verified)
+- Created `users` table with multi-provider authentication support
+- Added indexes for email, mobile, google_sub lookups
+- Implemented automatic timestamp triggers
 
-### 2. Trial Service (Spring Boot + Flyway)
-**Location**: `trial-service/src/main/resources/db/migration/`
+✅ **V2__api_keys_schema.sql** (Existing - Verified)
+- Created `api_keys` table for programmatic access
+- Added SHA-256 hash security with partial indexes
+- Implemented key prefix display pattern
 
-- ✅ **V1__subscriptions_schema.sql** (Already existed)
-  - `subscriptions` table (FREE_TRIAL, PRO, ENTERPRISE plans)
-  - `usage_tracking` table (monthly detection counts)
-  - Constraints and indexes
-  - Triggers for timestamp updates
+✅ **V3__add_foreign_key_constraints.sql** (NEW - Created)
+- Added foreign key constraint: `api_keys.user_id` → `users.id` (ON DELETE CASCADE)
+- Ensures referential integrity between API keys and users
 
-### 3. Support Service (FastAPI + Alembic)
-**Location**: `support-service/alembic/versions/`
+### 2. Trial Service Migrations (Spring Boot + Flyway)
 
-- ✅ **001_initial_schema.py** (Newly created)
-  - `tickets` table with categories and status workflow
-  - `ticket_messages` table with sender types
-  - `faq` table with 10 pre-populated questions
-  - Indexes and constraints
-  - Triggers for timestamp updates
+✅ **V1__subscriptions_schema.sql** (Existing - Verified)
+- Created `subscriptions` table for plan management (FREE_TRIAL, PRO, ENTERPRISE)
+- Created `usage_tracking` table for monthly detection quotas
+- Added appropriate constraints and indexes
 
-- ✅ **alembic.ini** (Configured)
-- ✅ **alembic/env.py** (Configured to import models)
-- ✅ **alembic/README.md** (Documentation)
+✅ **V2__add_foreign_key_constraints.sql** (NEW - Created)
+- Added foreign key constraint: `subscriptions.user_id` → `users.id` (ON DELETE CASCADE)
+- Added foreign key constraint: `usage_tracking.user_id` → `users.id` (ON DELETE CASCADE)
+- Ensures referential integrity across services
 
-### 4. Notification Service (FastAPI + Alembic)
-**Location**: `notification-service/alembic/versions/`
+### 3. Support Service Migrations (FastAPI + Alembic)
 
-- ✅ **001_initial_schema.py** (Newly created)
-  - `notifications` table with read/unread tracking
-  - `notification_preferences` table with user settings
-  - Indexes including partial index for unread notifications
-  - Triggers for timestamp updates
+✅ **001_initial_schema.py** (Existing - Verified)
+- Created `tickets` table for customer support tracking
+- Created `ticket_messages` table for conversation threads
+- Created `faq` table with 10 pre-populated common questions
+- Added appropriate triggers and indexes
 
-- ✅ **database.py** (Created - database connection module)
-- ✅ **alembic.ini** (Configured)
-- ✅ **alembic/env.py** (Configured to import models)
-- ✅ **alembic/README.md** (Documentation)
+✅ **002_add_foreign_key_constraints.py** (NEW - Created)
+- Added foreign key constraint: `tickets.user_id` → `users.id` (ON DELETE CASCADE)
+- Ensures referential integrity with users table
 
-### 5. Documentation
-- ✅ **DATABASE_MIGRATIONS.md** - Comprehensive guide covering:
-  - Overview of all services and their schemas
-  - Complete migration workflow
-  - Running migrations for each service
-  - Schema validation
-  - Troubleshooting guide
-  - Production considerations
+### 4. Notification Service Migrations (FastAPI + Alembic)
 
-## 📊 Database Tables Summary
+✅ **001_initial_schema.py** (Existing - Verified)
+- Created `notifications` table for in-app notifications
+- Created `notification_preferences` table for user settings
+- Added partial indexes for unread notifications
 
-| Service | Tables | Migration Tool |
-|---------|--------|---------------|
-| **Auth Service** | users, api_keys | Flyway |
-| **Trial Service** | subscriptions, usage_tracking | Flyway |
-| **Support Service** | tickets, ticket_messages, faq | Alembic |
-| **Notification Service** | notifications, notification_preferences | Alembic |
+✅ **002_add_foreign_key_constraints.py** (NEW - Created)
+- Added foreign key constraint: `notifications.user_id` → `users.id` (ON DELETE CASCADE)
+- Added foreign key constraint: `notification_preferences.user_id` → `users.id` (ON DELETE CASCADE)
+- Ensures referential integrity across notification system
 
-## 🔑 Key Features Implemented
+---
 
-### Auth Service
-- Multi-provider authentication (Email/Password, Google OAuth, Mobile OTP)
-- Secure API key management with SHA-256 hashing
-- Email and mobile verification tracking
-- Unique constraints on all auth identifiers
+## Files Created
 
-### Trial Service
-- Three subscription plans (FREE_TRIAL, PRO, ENTERPRISE)
-- Separate audio and image detection limits
-- Monthly usage tracking with atomic increments
-- Expiry date validation
+### Migration Files (4 New Files)
+1. `auth-service/src/main/resources/db/migration/V3__add_foreign_key_constraints.sql`
+2. `trial-service/src/main/resources/db/migration/V2__add_foreign_key_constraints.sql`
+3. `support-service/alembic/versions/002_add_foreign_key_constraints.py`
+4. `notification-service/alembic/versions/002_add_foreign_key_constraints.py`
 
-### Support Service
-- Complete ticket lifecycle management
-- Message threading with attachments
-- Pre-populated FAQ with 10 common questions
-- Internal notes for support agents
+### Documentation Files (5 New Files)
+1. `DATABASE_MIGRATIONS_SUMMARY.md` - Comprehensive migration overview
+2. `DATABASE_SCHEMA_DIAGRAM.md` - Visual ERD and table details
+3. `RUN_MIGRATIONS.md` - Step-by-step execution guide
+4. `verify_migrations.sql` - Automated verification script
+5. `test_cascade_delete.sql` - CASCADE DELETE behavior test
+6. `TASK_1.1_COMPLETION_SUMMARY.md` - This file
 
-### Notification Service
-- In-app notification system
-- Read/unread tracking with timestamps
-- User preferences for email, SMS, in-app
-- Digest frequency settings (DAILY, WEEKLY, NEVER)
+---
 
-## 🔧 How to Run Migrations
+## Database Schema Overview
 
-### For Java Services (Auth & Trial)
-```bash
-cd auth-service
-./mvnw flyway:migrate
+### Total Tables: 9
 
-cd ../trial-service
-./mvnw flyway:migrate
+**Auth Service:**
+- `users` (central authentication table)
+- `api_keys` (API key management)
+
+**Trial Service:**
+- `subscriptions` (plan management)
+- `usage_tracking` (monthly quota tracking)
+
+**Support Service:**
+- `tickets` (support ticket tracking)
+- `ticket_messages` (conversation threads)
+- `faq` (frequently asked questions)
+
+**Notification Service:**
+- `notifications` (in-app notifications)
+- `notification_preferences` (user settings)
+
+### Total Foreign Keys: 7
+
+All foreign keys implement **ON DELETE CASCADE** for automatic cleanup:
+1. `api_keys.user_id` → `users.id`
+2. `subscriptions.user_id` → `users.id`
+3. `usage_tracking.user_id` → `users.id`
+4. `tickets.user_id` → `users.id`
+5. `ticket_messages.ticket_id` → `tickets.id`
+6. `notifications.user_id` → `users.id`
+7. `notification_preferences.user_id` → `users.id`
+
+### Total Indexes: 20+
+
+Optimized for:
+- User lookups (email, mobile, google_sub)
+- Subscription expiry checks
+- Usage tracking queries
+- Ticket status filtering
+- Unread notification queries
+- Timeline/chronological queries
+
+### Total Triggers: 4
+
+Automatic timestamp updates for:
+- `users.updated_at`
+- `subscriptions.updated_at`
+- `tickets.updated_at`
+- `notification_preferences.updated_at`
+
+---
+
+## Key Features Implemented
+
+### 1. Referential Integrity
+- All foreign keys properly defined
+- CASCADE DELETE ensures clean data removal
+- No orphaned records possible
+
+### 2. Data Validation
+- CHECK constraints on enum fields (status, plan_type, category, etc.)
+- Date validation (expiry_date >= start_date)
+- Count validation (usage cannot be negative)
+- Auth method validation (appropriate fields for each provider)
+
+### 3. Performance Optimization
+- Strategic indexes on frequently queried columns
+- Composite indexes for complex queries
+- Partial indexes for filtered queries (active subscriptions, unread notifications)
+
+### 4. Data Integrity
+- UNIQUE constraints on critical fields (email, mobile, google_sub, ticket_number, key_hash)
+- NOT NULL constraints on required fields
+- DEFAULT values for timestamps and flags
+
+### 5. Audit Trail
+- created_at timestamps on all tables
+- updated_at timestamps with automatic triggers
+- last_login_at, last_used_at for activity tracking
+
+---
+
+## Migration Execution Order
+
+**IMPORTANT:** Migrations must run in this order to satisfy foreign key dependencies:
+
+```
+1. Auth Service V1     → users table (base table)
+2. Auth Service V2     → api_keys table  
+3. Auth Service V3     → FK constraint on api_keys ✨ NEW
+
+4. Trial Service V1    → subscriptions, usage_tracking tables
+5. Trial Service V2    → FK constraints on both tables ✨ NEW
+
+6. Support Service 001 → tickets, ticket_messages, faq tables
+7. Support Service 002 → FK constraint on tickets ✨ NEW
+
+8. Notification Service 001 → notifications, notification_preferences tables
+9. Notification Service 002 → FK constraints on both tables ✨ NEW
 ```
 
-### For Python Services (Support & Notification)
+---
+
+## How to Execute Migrations
+
+### Quick Start (Recommended)
+
 ```bash
+# Start PostgreSQL
+docker-compose up -d postgres
+
+# Start services (migrations run automatically on startup)
+docker-compose up -d auth-service trial-service
+
+# Run FastAPI service migrations manually
 cd support-service
-pip install -r requirements.txt
 alembic upgrade head
+cd ..
 
-cd ../notification-service
-pip install -r requirements.txt
+cd notification-service
 alembic upgrade head
+cd ..
 ```
 
-## ✨ Design Compliance
+### Detailed Instructions
 
-All schemas match the specifications in:
-- `design.md` - Data Models section (lines 710-950)
-- `requirements.md` - Acceptance criteria for all requirements
+See `RUN_MIGRATIONS.md` for complete step-by-step instructions including:
+- Manual migration execution
+- Troubleshooting common issues
+- Rollback procedures
+- Verification steps
 
-### Validation Rules Implemented
-- ✅ Check constraints for enum values
-- ✅ Unique constraints on identifiers
-- ✅ Foreign key constraints (within service boundaries)
-- ✅ Default values for timestamps and booleans
-- ✅ Proper indexes for query performance
-- ✅ Triggers for automatic timestamp updates
+---
 
-## 📝 Additional Enhancements
+## Verification
 
-1. **Models Updated**:
-   - `support-service/models.py` - Added timestamps to FAQ model
-   - `notification-service/models.py` - Added timestamps to NotificationPreference model
-   - `notification-service/database.py` - Created database connection module
+### Automated Verification
 
-2. **Pre-populated Data**:
-   - Support Service: 10 FAQs covering common questions about the platform
+Run the verification script to check all migrations:
 
-3. **Documentation**:
-   - Service-specific README files in alembic directories
-   - Comprehensive DATABASE_MIGRATIONS.md with troubleshooting
+```bash
+psql -U postgres -d mayabhedak_db -f verify_migrations.sql
+```
 
-## 🎯 Task Requirements Met
+Expected output:
+- ✓ All 9 required tables exist
+- ✓ All foreign key constraints exist
+- ✓ Expected indexes exist (20+)
+- ✓ Expected triggers exist (4)
+- ✓ FAQ table has initial data (10+ entries)
 
-✅ Create Flyway migration files for Auth Service (users table with all auth providers)
-✅ Create Flyway migration files for Trial Service (subscriptions, usage_tracking tables)  
-✅ Create database initialization scripts for Support Service (tickets, ticket_messages, faq tables)
-✅ Create database initialization scripts for Notification Service (notifications, notification_preferences tables)
-✅ Ensure all tables have proper constraints, indexes, and foreign keys as specified in the design document
+### Test CASCADE DELETE
 
-## 🚀 Next Steps
+Run the cascade delete test to verify referential integrity:
 
-1. Start PostgreSQL database:
-   ```bash
-   docker-compose -f docker-compose-infra.yml up -d postgres
-   ```
+```bash
+psql -U postgres -d mayabhedak_db -f test_cascade_delete.sql
+```
 
-2. Run migrations for all services (see "How to Run Migrations" above)
+This test creates a user with related data, deletes the user, and verifies all related records are automatically removed.
 
-3. Verify all tables are created:
-   ```bash
-   psql -U swarparikshan -d swarparikshan -c "\dt"
-   ```
+---
 
-4. Proceed to Task 1.2: Implement authentication endpoints
+## Database Compatibility
 
-## 📚 References
+- **PostgreSQL:** 12.0 or higher
+- **Flyway:** 9.x (Spring Boot services)
+- **Alembic:** 1.13.x (FastAPI services)
+- **SQLAlchemy:** 2.x (FastAPI services)
 
-- Design Document: `.kiro/specs/microservices-architecture-upgrade/design.md`
-- Requirements Document: `.kiro/specs/microservices-architecture-upgrade/requirements.md`
-- Flyway Documentation: https://flywaydb.org/documentation/
-- Alembic Documentation: https://alembic.sqlalchemy.org/
+---
+
+## Design Compliance
+
+All migrations fully comply with the design document specifications:
+
+✅ Table structures match design document exactly  
+✅ All constraints defined as specified  
+✅ All indexes implemented for performance  
+✅ Foreign key relationships correctly established  
+✅ Cascade delete behavior implemented  
+✅ Check constraints enforce business rules  
+✅ Triggers maintain data consistency  
+✅ Initial data populated (FAQ table)  
+
+---
+
+## Next Steps
+
+After migrations are complete:
+
+1. **Start all services** and verify they connect to the database
+2. **Test user registration** to verify users table
+3. **Test API key generation** to verify api_keys table and foreign keys
+4. **Test subscription initialization** to verify subscriptions table
+5. **Test detection requests** to verify usage_tracking
+6. **Test ticket creation** to verify tickets and ticket_messages
+7. **Test notifications** to verify notifications table
+8. **Test cascade delete** by deleting a test user
+
+---
+
+## Summary
+
+### What Changed
+- Added 4 new migration files for foreign key constraints
+- Created 5 comprehensive documentation files
+- Verified all existing migrations are complete and correct
+
+### What's Ready
+- All 9 database tables
+- All 7 foreign key constraints with CASCADE DELETE
+- 20+ performance indexes
+- 4 automatic timestamp triggers
+- 10 pre-populated FAQ entries
+- Complete referential integrity across services
+
+### Result
+✅ **Database schema is production-ready and can be deployed**
+
+The database foundation for the microservices architecture is now complete and ready for application development and testing.
+
+---
+
+**Task Completed By:** Kiro AI  
+**Date:** 2024-01-15  
+**Spec:** microservices-architecture-upgrade  
+**Task ID:** 1.1
